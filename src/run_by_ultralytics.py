@@ -1,7 +1,8 @@
+from ultralytics import YOLO
 import pyrealsense2 as rs
 import numpy as np
 import cv2
-from ultralytics import YOLO
+import os, sys
 
 # Initialize RealSense pipeline
 pipeline = rs.pipeline()
@@ -16,7 +17,8 @@ align = rs.align(rs.stream.color)
 pipeline.start(config)
 
 # Load YOLO model
-model = YOLO("yolov5s.pt")  # Replace with your trained YOLO model
+path = os.path.join("weights", "best.pt") # Replace with your trained YOLO model
+model = YOLO(path)  
 
 try:
     while True:
@@ -64,7 +66,10 @@ try:
                     (0, 255, 0), 
                     2
                 )
-
+		
+		# Print out the values
+		
+	
         # Display the image
         cv2.imshow("Color Image with Depth Annotations", color_image)
 
